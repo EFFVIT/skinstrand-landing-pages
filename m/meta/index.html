@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+/* HIPAA carve-out: medical (hair restoration) page. The app-default GTM container
+   (GTM-P632H247) includes a Meta Pixel tag. Locked rule: medical pages must not run a
+   browser Meta Pixel. This guard blocks fbevents.js and keeps window.fbq undefined,
+   while leaving GTM / GA4 / Google Ads untouched. Attribution rides server-side CAPI. */
+(function(){
+  try{
+    var proto=HTMLScriptElement.prototype;
+    var d=Object.getOwnPropertyDescriptor(proto,"src")||Object.getOwnPropertyDescriptor(Element.prototype,"src");
+    if(d&&d.set){Object.defineProperty(proto,"src",{configurable:true,enumerable:d.enumerable,
+      get:function(){return d.get.call(this);},
+      set:function(v){if(/connect\.facebook\.net|fbevents\.js/i.test(String(v)))return;d.set.call(this,v);}});}
+  }catch(e){}
+  function scrub(){try{if("fbq" in window){try{delete window.fbq;}catch(e){window.fbq=undefined;}}if("_fbq" in window){try{delete window._fbq;}catch(e){window._fbq=undefined;}}}catch(e){}}
+  var n=0,iv=setInterval(function(){scrub();if(++n>100)clearInterval(iv);},100);scrub();
+})();
+</script>
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-P632H247");</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
